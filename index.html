@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>木蘭破陣訣：記敘心法對決</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Noto Serif TC"', 'serif'],
+            brush: ['"Ma Shan Zheng"', 'cursive']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root { --ink-deep: #090d16; --gold: #c9a227; --parchment: #e8d5a8; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Noto Serif TC', serif;
+      background: linear-gradient(160deg, #060a12 0%, #0c1424 45%, #101c30 100%);
+      min-height: 100dvh; overflow-x: hidden; color: #e2e8f0; user-select: none;
+    }
+    .panel-glow {
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      box-shadow: 0 0 20px rgba(201, 162, 39, 0.08), inset 0 0 30px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(9, 13, 22, 0.96));
+    }
+    .scroll-box {
+      background:
+        linear-gradient(90deg, rgba(60, 40, 20, 0.55) 0%, transparent 8%),
+        linear-gradient(270deg, rgba(60, 40, 20, 0.55) 0%, transparent 8%),
+        linear-gradient(180deg, #2a2118, #3d3226 20%, #4a3c2a 50%, #3d3226 80%, #2a2118);
+      border: 2px solid rgba(201, 162, 39, 0.4);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(232, 213, 168, 0.05);
+    }
+    .verse-text { color: #fde68a; line-height: 1.7; font-weight: 600; }
+    .kw {
+      color: #fbbf24; font-weight: 900;
+      text-decoration: underline; text-decoration-color: rgba(251, 191, 36, 0.7);
+      text-underline-offset: 3px; text-shadow: 0 0 10px rgba(251, 191, 36, 0.45);
+      cursor: help; position: relative;
+    }
+    .kw:hover::after {
+      content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px);
+      transform: translateX(-50%); background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(251, 191, 36, 0.5); color: #fde68a;
+      font-size: 11px; font-weight: 600; padding: 6px 10px; border-radius: 6px;
+      white-space: nowrap; z-index: 50; box-shadow: 0 4px 16px rgba(0,0,0,0.5); pointer-events: none;
+    }
+
+    /* Character animations */
+    .idle-float { animation: idleFloat 3.4s ease-in-out infinite; }
+    @keyframes idleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .cloak-sway { animation: cloakSway 3.8s ease-in-out infinite; transform-origin: 70px 78px; }
+    @keyframes cloakSway {
+      0%, 100% { transform: rotate(0deg) skewX(0); }
+      50% { transform: rotate(-4deg) skewX(-2deg); }
+    }
+    .ribbon-sway { animation: ribbonSway 2.6s ease-in-out infinite; transform-origin: top left; }
+    @keyframes ribbonSway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(8deg); }
+    }
+    .tassel-sway { animation: tasselSway 2.2s ease-in-out infinite; transform-origin: top center; }
+    @keyframes tasselSway {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(6deg); }
+    }
+    .enemy-sway { animation: enemySway 2.6s ease-in-out infinite; }
+    @keyframes enemySway {
+      0%, 100% { transform: translateX(0) rotate(0); }
+      50% { transform: translateX(-4px) rotate(-1deg); }
+    }
+    .veil-flutter { animation: veilFlutter 2.1s ease-in-out infinite; transform-origin: center top; }
+    @keyframes veilFlutter {
+      0%, 100% { transform: skewX(0); }
+      50% { transform: skewX(5deg); }
+    }
+    .aura-pulse { animation: auraPulse 2.4s ease-in-out infinite; }
+    @keyframes auraPulse {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.7; }
+    }
+
+    .lunge-attack { animation: lungeAttack 0.42s cubic-bezier(0.2, 0.9, 0.3, 1) forwards; }
+    @keyframes lungeAttack {
+      0% { transform: translateX(0); filter: brightness(1); }
+      30% { transform: translateX(64px); filter: brightness(1.35); }
+      100% { transform: translateX(0); filter: brightness(1); }
+    }
+    .knockback { animation: knockback 0.55s ease-out; }
+    @keyframes knockback {
+      0% { transform: translateX(0); }
+      30% { transform: translateX(24px) rotate(3deg); }
+      100% { transform: translateX(0); }
+    }
+    .flash-white { animation: flashWhite 0.45s ease-out; }
+    @keyframes flashWhite {
+      0%, 100% { filter: brightness(1) contrast(1); }
+      25% { filter: brightness(2.4) contrast(1.3) saturate(0.2); }
+      50% { filter: brightness(1.6) sepia(0.4) hue-rotate(-20deg); }
+    }
+    .mulan-recoil { animation: mulanRecoil 0.55s ease-out; }
+    @keyframes mulanRecoil {
+      0% { transform: translateX(0) rotate(0); }
+      30% { transform: translateX(-26px) rotate(-5deg); }
+      100% { transform: translateX(0) rotate(0); }
+    }
+    .enemy-lunge { animation: enemyLunge 0.4s ease-out; }
+    @keyframes enemyLunge {
+      0% { transform: translateX(0); }
+      40% { transform: translateX(-36px); }
+      100% { transform: translateX(0); }
+    }
+    .eyes-charge #assassin-eyes,
+    .eyes-charge #general-eyes,
+    .eyes-charge #poet-eyes {
+      animation: eyesGlow 0.35s ease-in-out infinite alternate;
+    }
+    @keyframes eyesGlow {
+      from { fill: #f87171; filter: drop-shadow(0 0 2px #ef4444); }
+      to { fill: #fecaca; filter: drop-shadow(0 0 10px #ef4444); }
+    }
+    .shake-screen { animation: shakeScreen 0.38s ease-out; }
+    @keyframes shakeScreen {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-8px, 3px); }
+      40% { transform: translate(8px, -3px); }
+      60% { transform: translate(-5px, -2px); }
+      80% { transform: translate(4px, 2px); }
+    }
+    .combo-fire {
+      animation: comboFire 0.8s ease-in-out infinite alternate;
+      text-shadow: 0 0 16px #f59e0b, 0 0 32px #ef4444;
+    }
+    @keyframes comboFire {
+      from { color: #fbbf24; transform: scale(1); }
+      to { color: #f97316; transform: scale(1.08); }
+    }
+
+    .skill-btn {
+      min-height: 58px;
+      transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+      border: 1.5px solid rgba(201, 162, 39, 0.45);
+      background:
+        linear-gradient(180deg, rgba(55, 48, 30, 0.35) 0%, transparent 40%),
+        linear-gradient(180deg, rgba(30, 41, 59, 0.98), rgba(12, 18, 32, 1));
+      box-shadow: 0 2px 0 rgba(201, 162, 39, 0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .skill-btn:hover:not(:disabled) {
+      border-color: rgba(251, 191, 36, 0.85);
+      box-shadow: 0 0 18px rgba(201, 162, 39, 0.3);
+    }
+    .skill-btn:active:not(:disabled), .skill-btn.is-pressed {
+      transform: translateY(2px) scale(0.97);
+      border-color: #fbbf24;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.45);
+    }
+    .skill-btn:disabled { opacity: 0.42; cursor: not-allowed; }
+    .key-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 1.75rem; height: 1.75rem; padding: 0 0.35rem; border-radius: 0.35rem;
+      background: linear-gradient(180deg, #4a3b1a, #2a2110);
+      border: 1px solid rgba(251, 191, 36, 0.55); color: #fde68a; font-weight: 800; font-size: 0.8rem;
+    }
+
+    .hp-bar-track {
+      height: 10px; background: rgba(0,0,0,0.55); border-radius: 999px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .hp-bar-fill { height: 100%; border-radius: 999px; transition: width 0.45s ease-out; }
+    .timer-wrap {
+      margin-top: 6px; padding: 4px 6px 5px; border-radius: 8px;
+      background: rgba(0,0,0,0.35); border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+    .timer-wrap.is-urgent {
+      border-color: rgba(239, 68, 68, 0.7);
+      box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
+      animation: urgentPulse 0.4s ease-in-out infinite alternate;
+    }
+    @keyframes urgentPulse {
+      from { background: rgba(80, 10, 10, 0.35); }
+      to { background: rgba(120, 20, 20, 0.55); }
+    }
+    .timer-bar-track {
+      height: 12px; background: rgba(0,0,0,0.55); border-radius: 999px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .timer-bar-fill {
+      height: 100%; border-radius: 999px; width: 100%;
+      transition: width 0.1s linear, background 0.2s;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    }
+    .timer-bar-fill.is-urgent { background: linear-gradient(90deg, #f97316, #ef4444); }
+
+    .rage-track {
+      height: 8px; background: rgba(0,0,0,0.5); border-radius: 999px; overflow: hidden;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+    .rage-fill {
+      height: 100%; width: 0%; border-radius: 999px;
+      background: linear-gradient(90deg, #7c3aed, #eab308);
+      transition: width 0.35s ease-out; box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+    }
+    .ult-btn {
+      opacity: 0.35; pointer-events: none; filter: grayscale(0.6);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .ult-btn.ready {
+      opacity: 1; pointer-events: auto; filter: none;
+      animation: ultReady 0.9s ease-in-out infinite alternate;
+      border-color: #fbbf24 !important;
+    }
+    .ult-btn.ready::before {
+      content: ''; position: absolute; inset: -40%;
+      background: conic-gradient(from 0deg, transparent, rgba(251,191,36,0.25), transparent 40%);
+      animation: ultSpin 2.4s linear infinite; pointer-events: none;
+    }
+    @keyframes ultSpin { to { transform: rotate(360deg); } }
+    @keyframes ultReady {
+      from { box-shadow: 0 0 12px rgba(168, 85, 247, 0.4), 0 0 4px #fbbf24; }
+      to { box-shadow: 0 0 32px rgba(251, 191, 36, 0.75), 0 0 12px #f59e0b; }
+    }
+
+    .float-text {
+      position: absolute; left: 50%; top: 28%; transform: translate(-50%, 0);
+      pointer-events: none; z-index: 40; font-weight: 900; font-size: 1.05rem;
+      color: #fbbf24; text-align: center; white-space: nowrap;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(251, 191, 36, 0.55);
+      animation: floatUp 1.15s ease-out forwards;
+    }
+    .float-text.hurt { color: #fb7185; }
+    .float-text.ult { color: #fde68a; font-size: 1.35rem; font-family: 'Ma Shan Zheng', cursive; }
+    .float-text.technique {
+      font-size: 1.2rem; letter-spacing: 0.06em;
+      background: linear-gradient(180deg, #fff7d6, #fbbf24);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; -webkit-text-stroke: 0.5px rgba(120, 80, 0, 0.35);
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.85)) drop-shadow(0 0 12px rgba(251,191,36,0.5));
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translate(-50%, 14px) scale(0.75); }
+      15% { opacity: 1; transform: translate(-50%, 0) scale(1.12); }
+      100% { opacity: 0; transform: translate(-50%, -52px) scale(1); }
+    }
+
+    .shield-burst {
+      position: absolute; inset: 12% 18%; border-radius: 50%;
+      border: 3px solid rgba(251, 191, 36, 0.85);
+      box-shadow: 0 0 24px rgba(251, 191, 36, 0.55), inset 0 0 20px rgba(251, 191, 36, 0.25);
+      pointer-events: none; z-index: 25; animation: shieldBurst 0.55s ease-out forwards;
+    }
+    @keyframes shieldBurst {
+      0% { opacity: 1; transform: scale(0.65); }
+      50% { opacity: 0.85; transform: scale(1.2); }
+      100% { opacity: 0; transform: scale(1.5); border-style: dashed; }
+    }
+
+    .zan-glyph {
+      position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+      font-family: 'Ma Shan Zheng', cursive; font-size: clamp(5rem, 22vw, 9rem);
+      color: rgba(251, 191, 36, 0.92); z-index: 35; pointer-events: none;
+      text-shadow: 0 0 40px rgba(251, 191, 36, 0.8), 0 4px 20px rgba(0,0,0,0.6);
+      animation: zanSlash 0.85s ease-out forwards;
+    }
+    @keyframes zanSlash {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(-12deg); filter: blur(4px); }
+      25% { opacity: 1; transform: translate(-50%, -50%) scale(1.15) rotate(0); filter: blur(0); }
+      70% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, -60%) scale(1.3); }
+    }
+
+    .ink-freeze {
+      position: fixed; inset: 0; z-index: 45; pointer-events: none;
+      background: radial-gradient(circle, rgba(255,255,255,0.08), rgba(8,10,16,0.82));
+      filter: grayscale(0.85) contrast(1.15);
+      animation: inkFreeze 0.9s ease-out forwards;
+    }
+    @keyframes inkFreeze {
+      0% { opacity: 0; }
+      15% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .modal-backdrop { background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); }
+    .char-svg {
+      width: 100%; max-width: 168px; height: auto;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,0.5));
+    }
+    @media (min-width: 768px) {
+      .char-svg { max-width: 210px; }
+      .float-text { font-size: 1.25rem; }
+      .float-text.technique { font-size: 1.45rem; }
+      .float-text.ult { font-size: 1.7rem; }
+    }
+    #fx-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 20;
+    }
+
+    .battlefield {
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 50% 35% at 72% 18%, rgba(255, 236, 180, 0.14), transparent 55%),
+        radial-gradient(ellipse 40% 30% at 18% 70%, rgba(180, 80, 30, 0.1), transparent 60%),
+        linear-gradient(180deg, #0a1020 0%, #121c30 38%, #1a2438 62%, #2a2218 85%, #1a1510 100%);
+    }
+    .battlefield::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(circle at 74% 16%, rgba(255, 240, 200, 0.55) 0 3px, transparent 5px),
+        radial-gradient(circle at 74% 16%, rgba(255, 220, 140, 0.12) 0 28px, transparent 55px);
+    }
+    .battlefield-art { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+    .sand-particle {
+      position: absolute; width: 2px; height: 2px; background: rgba(212, 180, 120, 0.45);
+      border-radius: 50%; animation: sandDrift linear infinite;
+    }
+    @keyframes sandDrift {
+      0% { transform: translate(0, 0); opacity: 0; }
+      10% { opacity: 0.7; }
+      100% { transform: translate(-120px, 40px); opacity: 0; }
+    }
+    .ground-line {
+      position: absolute; left: 0; right: 0; bottom: 12%; height: 2px; z-index: 2;
+      background: linear-gradient(90deg, transparent, rgba(148, 120, 80, 0.35), transparent);
+    }
+    .ink-mote {
+      position: absolute; border-radius: 50%; background: rgba(30, 20, 40, 0.55);
+      animation: moteFloat 3s ease-in-out infinite;
+    }
+    @keyframes moteFloat {
+      0%, 100% { transform: translateY(0); opacity: 0.3; }
+      50% { transform: translateY(-12px); opacity: 0.7; }
+    }
+
+    .chapter-chip {
+      font-size: 10px; letter-spacing: 0.12em; color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.35); padding: 2px 8px; border-radius: 999px;
+      background: rgba(251, 191, 36, 0.08);
+    }
+
+    .report-scroll {
+      background: linear-gradient(90deg, #3d2e1a 0%, #5c4630 4%, #e8d5a8 6%, #f0e2bc 50%, #e8d5a8 94%, #5c4630 96%, #3d2e1a 100%);
+      color: #2c1810; border: 3px solid #8b6914; box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+      position: relative;
+    }
+    .seal-stamp {
+      position: absolute; top: 18px; right: 18px; width: 64px; height: 64px;
+      border: 3px solid #b91c1c; color: #b91c1c; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      font-weight: 900; font-size: 13px; line-height: 1.15; transform: rotate(12deg);
+      opacity: 0.85; background: rgba(185, 28, 28, 0.06);
+      box-shadow: inset 0 0 0 2px rgba(185, 28, 28, 0.35);
+    }
+    .radar-bar { height: 8px; background: rgba(44, 24, 16, 0.15); border-radius: 999px; overflow: hidden; }
+    .radar-fill {
+      height: 100%; border-radius: 999px; width: 0%;
+      background: linear-gradient(90deg, #92400e, #b45309); transition: width 0.8s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-root" class="max-w-4xl mx-auto min-h-dvh flex flex-col px-3 py-3 sm:px-5 sm:py-4 gap-3">
+
+    <header class="panel-glow rounded-lg px-3 py-2.5 sm:px-4 grid grid-cols-3 gap-2 items-center">
+      <div class="min-w-0">
+        <p id="hud-chapter" class="chapter-chip inline-block mb-1">城郊伏擊 · 第一關</p>
+        <p id="hud-enemy-name" class="font-bold text-amber-200 truncate text-xs sm:text-sm">幽陵刺客 · 順風刀</p>
+        <p id="hud-objective" class="text-slate-400 text-[11px] sm:text-xs mt-0.5 truncate">破譯【記敘方法】</p>
+      </div>
+      <div class="text-center">
+        <p class="text-[10px] sm:text-xs text-slate-400 tracking-widest">心流連擊</p>
+        <p id="hud-combo" class="text-xl sm:text-2xl font-black text-amber-100">×0</p>
+      </div>
+      <div class="text-right">
+        <p class="text-[10px] sm:text-xs text-slate-400">戰況進度</p>
+        <p id="hud-progress" class="font-semibold text-amber-100/90 text-sm sm:text-base">第 1/6 招式</p>
+      </div>
+    </header>
+
+    <section id="arena" class="panel-glow battlefield rounded-lg relative flex-shrink-0">
+      <div class="battlefield-art" aria-hidden="true">
+        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice">
+          <path d="M0 160 L80 110 L140 145 L220 85 L300 140 L380 95 L460 130 L540 70 L620 125 L700 90 L800 140 L800 280 L0 280 Z" fill="#0d1525" opacity="0.9"/>
+          <path d="M0 185 L100 150 L180 175 L280 120 L360 165 L480 115 L580 155 L680 125 L800 160 L800 280 L0 280 Z" fill="#121c2e" opacity="0.85"/>
+          <ellipse cx="120" cy="148" rx="18" ry="8" fill="#f59e0b" opacity="0.25"/>
+          <path d="M110 155 L120 125 L130 155 Z" fill="#ea580c" opacity="0.45"/>
+          <circle cx="590" cy="48" r="22" fill="#fef3c7" opacity="0.85"/>
+          <circle cx="598" cy="44" r="18" fill="#0a1020" opacity="0.35"/>
+          <path d="M0 230 Q200 218 400 232 T800 228 L800 280 L0 280 Z" fill="#1c1712"/>
+        </svg>
+        <div id="sand-layer"></div>
+        <div id="ink-motes"></div>
+        <div class="ground-line"></div>
+      </div>
+
+      <div class="relative z-10 grid grid-cols-2 gap-1 sm:gap-4 px-2 sm:px-6 pt-4 pb-4 min-h-[240px] sm:min-h-[280px]">
+        <canvas id="fx-canvas"></canvas>
+
+        <!-- Mulan -->
+        <div class="relative z-10 flex flex-col items-center">
+          <div class="w-full max-w-[180px] mb-2">
+            <div class="flex justify-between text-[10px] sm:text-xs mb-0.5">
+              <span class="text-emerald-300 font-semibold">巾幗劍仙 木蘭</span>
+              <span id="mulan-hp-text" class="text-emerald-200/80">100/100</span>
+            </div>
+            <div class="hp-bar-track">
+              <div id="mulan-hp-bar" class="hp-bar-fill bg-gradient-to-r from-emerald-700 to-emerald-400" style="width:100%"></div>
+            </div>
+            <div class="mt-1.5">
+              <div class="flex justify-between text-[9px] text-violet-300/80 mb-0.5">
+                <span>怒氣 · 神來之筆</span>
+                <span id="rage-text">0/3</span>
+              </div>
+              <div class="rage-track"><div id="rage-bar" class="rage-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div id="mulan-sprite" class="idle-float relative">
+            <!-- High-detail Mulan SVG -->
+            <svg class="char-svg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="木蘭立繪">
+              <defs>
+                <linearGradient id="mArmor" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#2a4a6e"/><stop offset="45%" stop-color="#1a3352"/><stop offset="100%" stop-color="#0a1628"/>
+                </linearGradient>
+                <linearGradient id="mCloak" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#9f1239"/><stop offset="40%" stop-color="#be123c"/><stop offset="100%" stop-color="#4c0519"/>
+                </linearGradient>
+                <linearGradient id="mBlade" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#f8fafc"/><stop offset="35%" stop-color="#e2e8f0"/><stop offset="70%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#64748b"/>
+                </linearGradient>
+                <linearGradient id="mGold" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#fef3c7"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/>
+                </linearGradient>
+                <linearGradient id="mSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#f5d0b0"/><stop offset="100%" stop-color="#d4a574"/>
+                </linearGradient>
+                <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="1.2" result="b"/>
+                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <!-- cloak back layer -->
+              <g class="cloak-sway">
+                <path d="M52 78 C18 95 12 140 28 175 C40 168 48 150 55 125 C58 108 60 90 62 80 Z" fill="url(#mCloak)" opacity="0.95"/>
+                <path d="M58 82 C30 105 26 145 38 172" stroke="#4c0519" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <path d="M95 80 C130 100 138 145 122 178 C110 170 102 150 96 128 C92 110 90 92 88 82 Z" fill="url(#mCloak)" opacity="0.75"/>
+              </g>
+              <!-- boots / legs -->
+              <path d="M58 145 C54 165 50 188 48 198 L62 200 C64 185 66 165 68 148 Z" fill="#1e293b"/>
+              <path d="M86 146 C88 165 90 188 92 198 L106 200 C104 185 100 165 96 148 Z" fill="#1e293b"/>
+              <path d="M46 196 C50 202 60 203 64 198" stroke="#0f172a" stroke-width="3" fill="none"/>
+              <path d="M90 196 C94 202 104 203 108 198" stroke="#0f172a" stroke-width="3" fill="none"/>
+              <!-- skirt panels -->
+              <path d="M50 128 C70 138 90 138 110 128 L108 150 C88 162 68 162 48 150 Z" fill="#1e3a5f"/>
+              <path d="M52 130 C72 142 92 142 108 130" stroke="#c9a227" stroke-width="1.2" fill="none" opacity="0.6"/>
+              <!-- torso armor with plates -->
+              <path d="M54 72 C78 60 102 72 106 76 L110 128 C88 140 68 140 50 128 Z" fill="url(#mArmor)"/>
+              <path d="M58 86 C78 78 98 86 102 90" stroke="url(#mGold)" stroke-width="2.2" fill="none"/>
+              <path d="M60 100 C78 94 96 100 100 104" stroke="#64748b" stroke-width="1.4" fill="none" opacity="0.75"/>
+              <path d="M62 112 C78 108 94 112 98 115" stroke="#475569" stroke-width="1" fill="none" opacity="0.5"/>
+              <!-- waist sash + hanging tassel -->
+              <path d="M50 118 C78 128 106 118 108 120 L106 132 C78 142 52 132 50 130 Z" fill="#9f1239"/>
+              <g class="tassel-sway">
+                <path d="M104 124 C118 138 124 158 120 172" stroke="#be123c" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M118 170 L116 178 M120 170 L124 178 M122 170 L120 180" stroke="#f43f5e" stroke-width="1.5"/>
+              </g>
+              <!-- left arm -->
+              <path d="M52 78 C38 95 28 118 34 128 C42 124 48 110 54 92 Z" fill="url(#mArmor)"/>
+              <ellipse cx="34" cy="126" rx="7" ry="5" fill="#334155"/>
+              <rect x="28" y="122" width="10" height="6" rx="1" fill="url(#mGold)" opacity="0.8"/>
+              <!-- right arm + yanling blade -->
+              <path d="M104 78 C118 92 128 112 124 124 C116 122 110 108 104 90 Z" fill="url(#mArmor)"/>
+              <g transform="translate(118,48) rotate(22)" filter="url(#softGlow)">
+                <path d="M4 18 L10 18 L12 95 L6 98 L2 95 Z" fill="url(#mBlade)"/>
+                <path d="M5 18 L9 18 L10 70 L6 70 Z" fill="#ffffff" opacity="0.35"/>
+                <polygon points="3,18 11,18 7,-8" fill="#f1f5f9"/>
+                <rect x="0" y="95" width="14" height="6" rx="1" fill="url(#mGold)"/>
+                <rect x="4" y="101" width="6" height="18" rx="1" fill="#78350f"/>
+                <circle cx="7" cy="121" r="3.5" fill="#fbbf24"/>
+                <path d="M7 101 L7 118" stroke="#c9a227" stroke-width="0.8"/>
+              </g>
+              <!-- neck / collar -->
+              <path d="M68 68 C78 64 88 68 90 72 L86 78 C78 74 70 74 66 78 Z" fill="#1e293b"/>
+              <!-- head -->
+              <ellipse cx="78" cy="48" rx="17" ry="19" fill="url(#mSkin)"/>
+              <!-- hair -->
+              <path d="M60 48 C58 28 70 18 78 18 C90 18 100 30 96 50 C92 42 84 38 78 38 C70 38 64 42 60 48 Z" fill="#1c1917"/>
+              <path d="M62 40 C60 52 58 62 62 68" fill="#0c0a09"/>
+              <path d="M94 42 C98 54 100 64 96 70" fill="#0c0a09"/>
+              <!-- forehead band + crown -->
+              <path d="M62 40 C78 34 94 40 96 42 L94 48 C78 42 64 48 62 46 Z" fill="#0f172a"/>
+              <path d="M70 28 L78 10 L86 28" fill="url(#mGold)"/>
+              <circle cx="78" cy="16" r="3.5" fill="#fde68a"/>
+              <circle cx="78" cy="16" r="1.5" fill="#b45309"/>
+              <!-- red ribbons -->
+              <g class="ribbon-sway">
+                <path d="M88 32 C102 28 112 40 108 55 C104 48 98 40 90 38" fill="#be123c"/>
+                <path d="M90 34 C104 36 114 50 110 62" stroke="#9f1239" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <g class="ribbon-sway" style="animation-delay: -0.8s">
+                <path d="M68 30 C54 26 44 38 48 52" stroke="#be123c" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- face details -->
+              <ellipse cx="72" cy="48" rx="2.2" ry="2.8" fill="#1c1917"/>
+              <ellipse cx="86" cy="48" rx="2.2" ry="2.8" fill="#1c1917"/>
+              <path d="M74 56 Q78 59 82 56" stroke="#b45309" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="78" cy="52" rx="3" ry="1.5" fill="#f5d0b0" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Enemy -->
+        <div class="relative z-10 flex flex-col items-center">
+          <div class="w-full max-w-[180px] mb-2">
+            <div class="flex justify-between text-[10px] sm:text-xs mb-0.5">
+              <span id="enemy-title" class="text-rose-300 font-semibold truncate">幽陵刺客</span>
+              <span id="enemy-hp-text" class="text-rose-200/80">100/100</span>
+            </div>
+            <div class="hp-bar-track">
+              <div id="enemy-hp-bar" class="hp-bar-fill bg-gradient-to-r from-rose-800 to-rose-500" style="width:100%"></div>
+            </div>
+            <div id="timer-wrap" class="timer-wrap">
+              <div class="flex justify-between text-[9px] mb-1">
+                <span id="timer-label" class="text-amber-300/90 font-semibold">刺客蓄力斬</span>
+                <span id="timer-sec" class="text-rose-200 font-bold tabular-nums">6.0s</span>
+              </div>
+              <div class="timer-bar-track"><div id="enemy-timer-bar" class="timer-bar-fill" style="width:100%"></div></div>
+            </div>
+          </div>
+          <div id="enemy-sprite" class="enemy-sway relative">
+            <!-- Assassin -->
+            <svg id="enemy-svg-assassin" class="char-svg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="刺客立繪">
+              <defs>
+                <linearGradient id="aCloak" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#020617"/>
+                </linearGradient>
+                <linearGradient id="aDagger" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#a7f3d0"/><stop offset="50%" stop-color="#34d399"/><stop offset="100%" stop-color="#064e3b"/>
+                </linearGradient>
+                <radialGradient id="aAura" cx="50%" cy="45%" r="50%">
+                  <stop offset="60%" stop-color="rgba(15,10,30,0)"/><stop offset="100%" stop-color="rgba(20,10,40,0.55)"/>
+                </radialGradient>
+              </defs>
+              <ellipse class="aura-pulse" cx="80" cy="120" rx="55" ry="78" fill="url(#aAura)"/>
+              <path d="M42 62 C80 40 118 62 122 70 L128 168 C80 188 36 168 34 160 Z" fill="url(#aCloak)"/>
+              <path d="M48 78 C80 58 112 78 116 84" stroke="#1e293b" stroke-width="2" fill="none"/>
+              <path d="M55 78 C50 110 48 145 58 175 L72 176 C68 145 70 110 74 82 Z" fill="#0f172a"/>
+              <path d="M90 82 C94 110 96 145 92 176 L106 175 C112 145 110 110 102 80 Z" fill="#0f172a"/>
+              <!-- reverse-grip daggers -->
+              <g transform="translate(22,95) rotate(-48)">
+                <rect x="0" y="0" width="48" height="4" rx="1" fill="url(#aDagger)"/>
+                <polygon points="48,2 64,-5 64,9" fill="#ecfdf5"/>
+                <rect x="-8" y="-3" width="10" height="10" rx="1" fill="#334155"/>
+                <circle cx="-3" cy="2" r="2" fill="#10b981" opacity="0.8"/>
+              </g>
+              <g transform="translate(108,100) rotate(50)">
+                <rect x="0" y="0" width="46" height="4" rx="1" fill="url(#aDagger)"/>
+                <polygon points="46,2 62,-5 62,9" fill="#ecfdf5"/>
+                <rect x="-8" y="-3" width="10" height="10" rx="1" fill="#334155"/>
+              </g>
+              <!-- hood + veil -->
+              <path d="M55 55 C80 30 108 55 110 62 L105 78 C80 68 58 78 52 70 Z" fill="#1e293b"/>
+              <ellipse cx="80" cy="58" rx="20" ry="17" fill="#334155"/>
+              <g class="veil-flutter">
+                <path d="M60 56 C80 72 100 56 102 60 L100 82 C80 94 60 82 58 78 Z" fill="#0f172a"/>
+                <path d="M64 64 C80 74 96 64 98 66" stroke="#475569" stroke-width="1" fill="none"/>
+              </g>
+              <g id="assassin-eyes">
+                <rect x="68" y="58" width="11" height="2.8" rx="1" fill="#94a3b8"/>
+                <rect x="84" y="58" width="11" height="2.8" rx="1" fill="#94a3b8"/>
+              </g>
+            </svg>
+
+            <!-- General / Cavalry -->
+            <svg id="enemy-svg-general" class="char-svg hidden" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="騎督立繪">
+              <defs>
+                <linearGradient id="gArmor" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#a8a29e"/><stop offset="40%" stop-color="#78716c"/><stop offset="100%" stop-color="#1c1917"/>
+                </linearGradient>
+                <linearGradient id="gGold" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#92400e"/>
+                </linearGradient>
+                <radialGradient id="gAura" cx="50%" cy="40%" r="55%">
+                  <stop offset="50%" stop-color="rgba(40,20,10,0)"/><stop offset="100%" stop-color="rgba(60,20,10,0.45)"/>
+                </radialGradient>
+              </defs>
+              <ellipse class="aura-pulse" cx="80" cy="118" rx="58" ry="80" fill="url(#gAura)"/>
+              <!-- body -->
+              <path d="M40 70 C80 48 120 70 124 78 L118 158 C80 178 42 158 38 150 Z" fill="url(#gArmor)"/>
+              <!-- beast-head pauldrons -->
+              <path d="M28 72 C18 68 14 88 24 98 C32 92 38 82 40 76 Z" fill="#57534e"/>
+              <path d="M24 78 C20 74 22 70 28 72" fill="#a8a29e"/>
+              <circle cx="26" cy="80" r="2.5" fill="#f87171"/>
+              <path d="M132 72 C142 68 146 88 136 98 C128 92 122 82 120 76 Z" fill="#57534e"/>
+              <path d="M136 78 C140 74 138 70 132 72" fill="#a8a29e"/>
+              <circle cx="134" cy="80" r="2.5" fill="#f87171"/>
+              <!-- chest plate + belt -->
+              <path d="M52 88 C80 78 108 88 112 94 L108 118 C80 128 52 118 48 112 Z" fill="#44403c"/>
+              <rect x="50" y="100" width="60" height="9" rx="1" fill="url(#gGold)" opacity="0.75"/>
+              <path d="M55 122 L105 122" stroke="#78716c" stroke-width="2"/>
+              <!-- legs -->
+              <path d="M55 155 L48 198 L66 200 L70 158 Z" fill="#292524"/>
+              <path d="M92 158 L96 200 L114 198 L105 155 Z" fill="#292524"/>
+              <!-- snake spear -->
+              <g transform="translate(118,40)">
+                <rect x="1" y="10" width="5" height="130" fill="#44403c"/>
+                <path d="M-4 10 C8 -8 18 4 10 18 C4 10 -2 14 -4 10 Z" fill="#a8a29e"/>
+                <path d="M3 0 L6 14 L0 12 Z" fill="#e7e5e4"/>
+                <circle cx="3.5" cy="20" r="6" fill="url(#gGold)"/>
+              </g>
+              <!-- wolf helm -->
+              <ellipse cx="80" cy="52" rx="24" ry="22" fill="#44403c"/>
+              <path d="M58 48 C80 20 102 48 104 52 L96 62 C80 52 64 62 56 56 Z" fill="#78716c"/>
+              <path d="M62 30 L70 18 L74 32" fill="#a8a29e"/>
+              <path d="M98 30 L90 16 L86 32" fill="#a8a29e"/>
+              <circle cx="80" cy="28" r="4" fill="#fbbf24"/>
+              <path d="M70 58 L90 58 L85 72 L75 72 Z" fill="#1c1917"/>
+              <g id="general-eyes">
+                <ellipse cx="70" cy="54" rx="4" ry="2.5" fill="#fca5a5"/>
+                <ellipse cx="90" cy="54" rx="4" ry="2.5" fill="#fca5a5"/>
+              </g>
+            </svg>
+
+            <!-- Li Bai poet-sword spirit -->
+            <svg id="enemy-svg-poet" class="char-svg hidden" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="李白劍魂">
+              <defs>
+                <linearGradient id="pRobe" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#e2e8f0"/><stop offset="50%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#334155"/>
+                </linearGradient>
+                <linearGradient id="pInk" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#020617"/>
+                </linearGradient>
+                <radialGradient id="pAura" cx="50%" cy="40%" r="50%">
+                  <stop offset="40%" stop-color="rgba(148,163,184,0)"/><stop offset="100%" stop-color="rgba(100,116,139,0.4)"/>
+                </radialGradient>
+                <filter id="pGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="1.2" result="b"/>
+                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <ellipse class="aura-pulse" cx="80" cy="115" rx="52" ry="75" fill="url(#pAura)"/>
+              <path d="M48 68 C80 52 112 68 116 76 L110 165 C80 182 48 165 44 156 Z" fill="url(#pRobe)"/>
+              <path d="M70 70 L80 150 L90 70" fill="#f8fafc" opacity="0.35"/>
+              <path d="M55 100 C80 110 105 100 108 104" stroke="#64748b" stroke-width="1.5" fill="none"/>
+              <path d="M58 155 L52 198 L68 200 L72 158 Z" fill="#1e293b"/>
+              <path d="M90 158 L94 200 L110 198 L104 155 Z" fill="#1e293b"/>
+              <!-- floating sword -->
+              <g transform="translate(115,55) rotate(12)" filter="url(#pGlow)">
+                <rect x="3" y="0" width="3.5" height="85" fill="#cbd5e1"/>
+                <polygon points="2,0 8,0 5.5,-14" fill="#f8fafc"/>
+                <rect x="0" y="85" width="10" height="4" fill="#c9a227"/>
+              </g>
+              <!-- scroll in left hand -->
+              <g transform="translate(28,100) rotate(-20)">
+                <rect x="0" y="0" width="28" height="36" rx="2" fill="#e8d5a8"/>
+                <path d="M4 8 H24 M4 14 H20 M4 20 H22" stroke="#92400e" stroke-width="1" opacity="0.5"/>
+              </g>
+              <!-- head + scholar hat -->
+              <ellipse cx="80" cy="52" rx="18" ry="20" fill="#e8c4a0"/>
+              <path d="M62 48 C64 28 80 22 96 30 C98 45 94 52 90 55 C84 48 72 46 62 48 Z" fill="#1c1917"/>
+              <rect x="60" y="28" width="40" height="8" rx="1" fill="url(#pInk)"/>
+              <rect x="74" y="14" width="12" height="16" fill="#1e293b"/>
+              <g id="poet-eyes">
+                <ellipse cx="72" cy="52" rx="2.5" ry="3" fill="#1c1917"/>
+                <ellipse cx="88" cy="52" rx="2.5" ry="3" fill="#1c1917"/>
+              </g>
+              <path d="M74 60 Q80 64 86 60" stroke="#b45309" stroke-width="1.2" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-box rounded-lg px-4 py-3 sm:px-6 sm:py-4">
+      <div class="flex items-center justify-between mb-2">
+        <span id="verse-source" class="text-xs sm:text-sm text-amber-200/80 tracking-wide">《木蘭詩》</span>
+        <span id="verse-type" class="text-[10px] sm:text-xs px-2 py-0.5 rounded border border-amber-500/40 text-amber-300/90">記敘方法</span>
+      </div>
+      <p id="verse-text" class="verse-text text-center text-sm sm:text-lg mb-3 px-1"></p>
+      <p id="verse-prompt" class="text-center text-parchment/90 text-xs sm:text-sm leading-relaxed"></p>
+      <p id="hint-line" class="text-center text-[10px] sm:text-xs text-amber-200/50 mt-2 italic"></p>
+    </section>
+
+    <button type="button" id="btn-ult" class="ult-btn skill-btn rounded-lg py-2.5 px-3 text-center w-full">
+      <span class="relative z-10 text-amber-200 font-bold text-sm sm:text-base">空白鍵 Space · 神來之筆</span>
+      <span class="relative z-10 block text-[10px] text-violet-200/70 mt-0.5">怒氣滿 3 釋放 · 書法「斬」字直削 60HP</span>
+    </button>
+
+    <section class="grid grid-cols-2 gap-2 sm:gap-3">
+      <button type="button" class="skill-btn rounded-lg px-3 py-2.5 text-left" data-key="A" id="btn-A">
+        <span class="key-badge mr-2">A · 1</span>
+        <span class="skill-label text-sm sm:text-base text-slate-100" id="label-A">選項 A</span>
+      </button>
+      <button type="button" class="skill-btn rounded-lg px-3 py-2.5 text-left" data-key="B" id="btn-B">
+        <span class="key-badge mr-2">B · 2</span>
+        <span class="skill-label text-sm sm:text-base text-slate-100" id="label-B">選項 B</span>
+      </button>
+      <button type="button" class="skill-btn rounded-lg px-3 py-2.5 text-left" data-key="C" id="btn-C">
+        <span class="key-badge mr-2">C · 3</span>
+        <span class="skill-label text-sm sm:text-base text-slate-100" id="label-C">選項 C</span>
+      </button>
+      <button type="button" class="skill-btn rounded-lg px-3 py-2.5 text-left" data-key="D" id="btn-D">
+        <span class="key-badge mr-2">D · 4</span>
+        <span class="skill-label text-sm sm:text-base text-slate-100" id="label-D">選項 D</span>
+      </button>
+    </section>
+    <p class="text-center text-[10px] sm:text-xs text-slate-500 pb-2">鍵盤 A/B/C/D 或 1/2/3/4 出招 · 空白鍵釋放神來之筆</p>
+  </div>
+
+  <!-- Fail / 勒馬推演 -->
+  <div id="fail-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="panel-glow rounded-xl max-w-md w-full p-5 border-rose-500/40">
+      <h3 class="text-lg font-bold text-rose-300 mb-1">勒馬推演 · 心法密卷</h3>
+      <p class="text-[10px] text-slate-500 mb-3">敵將發招暫停 · 趁機領悟再戰</p>
+      <p id="fail-analysis" class="text-sm text-slate-300 leading-relaxed mb-2"></p>
+      <p id="fail-hint" class="text-xs text-amber-200/90 leading-relaxed mb-4 p-3 rounded border border-amber-500/30 bg-amber-500/5"></p>
+      <div class="flex flex-col sm:flex-row gap-2">
+        <button type="button" id="btn-retry" class="flex-1 skill-btn rounded-lg py-3 text-center text-amber-200 font-semibold">第二次領悟 · 再出招</button>
+        <button type="button" id="btn-endure" class="flex-1 skill-btn rounded-lg py-3 text-center text-slate-300">承受傷害 · 繼續</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Victory scroll -->
+  <div id="victory-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div id="report-card" class="report-scroll rounded-xl max-w-md w-full p-6 text-center">
+      <div class="seal-stamp">Uni+<br/>破陣<br/>認證</div>
+      <p class="text-amber-900/70 text-xs tracking-[0.35em] mb-1">Uni+ 破陣宗師卷軸</p>
+      <h2 class="text-2xl sm:text-3xl font-black text-amber-950 mb-1">破陣大捷</h2>
+      <p id="victory-rank" class="text-lg text-amber-900 font-bold mb-1">破陣宗師</p>
+      <p id="victory-expert" class="text-xs text-amber-950/70 mb-4 px-2"></p>
+      <div class="text-left space-y-3 mb-5 px-1">
+        <div>
+          <div class="flex justify-between text-xs font-semibold mb-1"><span>記敘方法破招率</span><span id="stat-mastery">100%</span></div>
+          <div class="radar-bar"><div id="bar-mastery" class="radar-fill"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs font-semibold mb-1"><span>人稱辨析身法速度</span><span id="stat-speed">0.7 秒/招</span></div>
+          <div class="radar-bar"><div id="bar-speed" class="radar-fill"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs font-semibold mb-1"><span>最高心流連擊</span><span id="stat-combo">×0</span></div>
+          <div class="radar-bar"><div id="bar-combo" class="radar-fill"></div></div>
+        </div>
+      </div>
+      <p id="victory-detail" class="text-xs text-amber-950/70 mb-4"></p>
+      <div class="flex flex-col gap-2">
+        <button type="button" id="btn-next-stage" class="rounded-lg py-3 font-semibold bg-amber-900 text-amber-50 hover:bg-amber-800 transition">進擊下一關</button>
+        <button type="button" id="btn-restart" class="rounded-lg py-2.5 text-amber-950/70 border border-amber-900/30 hover:bg-amber-900/10 transition">重開本關</button>
+        <button type="button" id="btn-share" class="rounded-lg py-2 text-xs text-amber-900/80 border border-dashed border-amber-900/40">一鍵截圖／分享提示</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="defeat-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
+    <div class="panel-glow rounded-xl max-w-md w-full p-6 text-center border-rose-500/40">
+      <h2 class="text-2xl font-black text-rose-300 mb-2">真氣潰散</h2>
+      <p class="text-sm text-slate-400 mb-5">木蘭護體真氣耗盡，需重整心法再戰。</p>
+      <button type="button" id="btn-retry-stage" class="skill-btn rounded-lg py-3 w-full text-amber-200 font-semibold">重試本關</button>
+    </div>
+  </div>
+
+  <div id="share-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] hidden px-4 py-2 rounded-lg bg-amber-950 text-amber-100 text-sm shadow-lg">
+    請使用系統截圖功能保存卷軸，發送給家長作為學習證明
+  </div>
+
+  <script>
+  const BATTLE_STAGES = [
+    {
+      stageId: 1,
+      chapter: "城郊伏擊 · 第一關",
+      enemyName: "幽陵刺客 · 順風刀",
+      enemyShort: "幽陵刺客",
+      enemyHp: 100,
+      enemyVisual: "assassin",
+      chargeLabel: "刺客蓄力斬",
+      objective: "破譯【記敘方法】",
+      questions: [
+        {
+          verseHtml: '<span class="kw" data-tip="東南西北：按方位／時間順序鋪陳">東市</span>買駿馬，<span class="kw" data-tip="排比鋪陳，一氣呵成">西市</span>買鞍韉，<span class="kw" data-tip="依序展開採購">南市</span>買轡頭，<span class="kw" data-tip="先後有條不紊＝順敘">北市</span>買長鞭。',
+          source: "《木蘭詩》", questionType: "記敘方法",
+          prompt: "按事物發生先後次序，有條不紊鋪陳採購，此招為何身法？",
+          scaffoldHint: "此處東南西北依序鋪陳採購，按先後一氣呵成，乃長驅直入之順敘也。",
+          techniqueTitle: "【長驅直入 · 破軍！】",
+          options: [
+            { key: "A", text: "順敘 (長驅直入)", isCorrect: true, analysis: "順敘法：按時間推進，表現戰事緊迫與有條不紊。" },
+            { key: "B", text: "倒敘 (先聲奪人)", isCorrect: false, analysis: "並未先交代出征歸來的結果，並非倒敘。" },
+            { key: "C", text: "插敘 (回風拂柳)", isCorrect: false, analysis: "情節在主線上向前發展，並無暫時中斷回憶。" },
+            { key: "D", text: "補敘 (暗度陳倉)", isCorrect: false, analysis: "這是正面鋪陳，非篇末額外補充。" }
+          ]
+        },
+        {
+          verseHtml: '問女何所思，問女何所憶。女亦無所思，女亦無所憶。<span class="kw" data-tip="從當下插入昨夜——時空回溯">昨夜</span>見軍帖，可汗大點兵...',
+          source: "《木蘭詩》", questionType: "記敘方法",
+          prompt: "從當下嘆息暫停，轉而交代昨夜軍帖徵兵之因，此為何招？",
+          scaffoldHint: "此處交代昨夜徵兵，打斷當下織布，乃回風拂柳之插敘也。",
+          techniqueTitle: "【回風拂柳 · 截脈！】",
+          options: [
+            { key: "A", text: "順敘 (長驅直入)", isCorrect: false, analysis: "情節打斷了當下織布，屬於時空回溯。" },
+            { key: "B", text: "倒敘 (先聲奪人)", isCorrect: false, analysis: "倒敘需置於全篇開頭，此處為中途插入背景。" },
+            { key: "C", text: "插敘 (回風拂柳)", isCorrect: true, analysis: "插敘法：中斷嘆息情節，回述昨夜徵兵原因，交代出征緣由。" },
+            { key: "D", text: "平敘 (花開兩朵)", isCorrect: false, analysis: "非兩條線同時交代，為單一主線回溯。" }
+          ]
+        }
+      ]
+    },
+    {
+      stageId: 2,
+      chapter: "邊塞夜襲 · 第二關",
+      enemyName: "漠北騎督 · 乾坤眼",
+      enemyShort: "漠北騎督",
+      enemyHp: 120,
+      enemyVisual: "general",
+      chargeLabel: "騎督蓄力斬",
+      objective: "破譯【記敘人稱】",
+      questions: [
+        {
+          verseHtml: '唧唧復唧唧，<span class="kw" data-tip="旁觀敘述木蘭，無「我」＝第三人稱">木蘭</span>當戶織。不聞機杼聲，唯聞<span class="kw" data-tip="客觀俯瞰人物動作">女歎息</span>。',
+          source: "《木蘭詩》", questionType: "記敘人稱",
+          prompt: "旁觀者以客觀目光敘述木蘭之嘆，未出現「我」，屬於何種心法？",
+          scaffoldHint: "全知旁觀、不見「我／余」，乃全知御劍之第三人稱也。",
+          techniqueTitle: "【全知御劍 · 斬魄！】",
+          options: [
+            { key: "A", text: "第三人稱 (全知御劍)", isCorrect: true, analysis: "第三人稱客觀敘述，俯瞰全局人物與動作。" },
+            { key: "B", text: "第一人稱 (身臨其境)", isCorrect: false, analysis: "全篇無「我」或「余」，並非第一人稱。" },
+            { key: "C", text: "第二人稱 (面命耳提)", isCorrect: false, analysis: "並未以「你」直接與讀者對話。" },
+            { key: "D", text: "主客交替 (移形換步)", isCorrect: false, analysis: "此處為標準穩定的第三人稱。" }
+          ]
+        },
+        {
+          verseHtml: '此地一為別，孤蓬萬里征。浮雲遊子意，<span class="kw" data-tip="故人情＝詩人自身離情">落日故人情</span>。<span class="kw" data-tip="揮手者即詩人自己">揮手自茲去</span>，蕭蕭班馬鳴。',
+          source: "《送友人》", questionType: "記敘與抒情",
+          prompt: "「落日故人情...揮手自茲去」，詩人將自己與友人的離情寄託於景，視角心法為何？",
+          scaffoldHint: "詩人親歷離別、傾注主觀深情，乃遊俠自述之第一人稱也。",
+          techniqueTitle: "【遊俠自述 · 裂空！】",
+          options: [
+            { key: "A", text: "第一人稱 (遊俠自述)", isCorrect: true, analysis: "詩人自身作為離別參與者，傾注個人與友人的主觀深情。" },
+            { key: "B", text: "客觀史官 (冷眼旁觀)", isCorrect: false, analysis: "詩中充滿強烈抒情與朋友情誼，非客觀記錄。" },
+            { key: "C", text: "插敘回憶 (夢迴長安)", isCorrect: false, analysis: "此聯描繪當下離別實景，非回憶。" },
+            { key: "D", text: "托物言志 (託名傳記)", isCorrect: false, analysis: "此處情景交融，核心為自身體驗。" }
+          ]
+        }
+      ]
+    },
+    {
+      stageId: 3,
+      chapter: "孤舟長別 · 第三關",
+      enemyName: "李白劍魂 · 孤蓬客",
+      enemyShort: "李白劍魂",
+      enemyHp: 140,
+      enemyVisual: "poet",
+      chargeLabel: "劍魂蓄力吟",
+      objective: "破譯【借景抒情／托物言志】",
+      questions: [
+        {
+          verseHtml: '浮雲<span class="kw" data-tip="浮雲喻遊子漂泊">遊子意</span>，落日<span class="kw" data-tip="落日喻故人情深">故人情</span>。',
+          source: "《送友人》", questionType: "借景抒情",
+          prompt: "以「浮雲」「落日」寫遊子與故人，此為何種抒情身法？",
+          scaffoldHint: "景物承載情意，情由景出，乃借景抒情也。",
+          techniqueTitle: "【借景抒情 · 掠影！】",
+          options: [
+            { key: "A", text: "借景抒情 (景中藏情)", isCorrect: true, analysis: "以浮雲、落日之景寄託離情，情由景生。" },
+            { key: "B", text: "直抒胸臆 (直言心意)", isCorrect: false, analysis: "並未直接說「我很傷心」，而是寄情於景。" },
+            { key: "C", text: "平敘紀實 (流水帳)", isCorrect: false, analysis: "此聯重在意境與情思，非純紀實。" },
+            { key: "D", text: "倒敘開篇 (先果後因)", isCorrect: false, analysis: "此處為當下離別實景，非倒敘結構。" }
+          ]
+        },
+        {
+          verseHtml: '<span class="kw" data-tip="孤蓬＝飄蓬，喻孤身遠行的友人">孤蓬</span>萬里征。揮手自茲去，<span class="kw" data-tip="班馬鳴＝馬亦惜別">蕭蕭班馬鳴</span>。',
+          source: "《送友人》", questionType: "托物言志",
+          prompt: "以「孤蓬」「班馬」寫離別之志與情，此心法近於？",
+          scaffoldHint: "借孤蓬、班馬之物象言離別之志，近托物言志／托物寄情。",
+          techniqueTitle: "【托物言志 · 封喉！】",
+          options: [
+            { key: "A", text: "托物言志 (物我相融)", isCorrect: true, analysis: "以孤蓬、班馬之物象寄託惜別與孤征之志。" },
+            { key: "B", text: "第三人稱全知", isCorrect: false, analysis: "本題考的是抒情手法，非記敘人稱。" },
+            { key: "C", text: "插敘補白", isCorrect: false, analysis: "並非插入另一段回憶情節。" },
+            { key: "D", text: "補敘收束", isCorrect: false, analysis: "此為詩中主體意象，非篇末補敘。" }
+          ]
+        }
+      ]
+    }
+  ];
+
+  const MULAN_MAX_HP = 100;
+  const TIMER_SECONDS = 6;
+  const DAMAGE_TO_MULAN = 20;
+  const ULT_DAMAGE = 60;
+  const RAGE_MAX = 3;
+  const KEY_MAP = {
+    '1': 'A', '2': 'B', '3': 'C', '4': 'D',
+    a: 'A', b: 'B', c: 'C', d: 'D',
+    A: 'A', B: 'B', C: 'C', D: 'D'
+  };
+
+  const AudioEngine = {
+    ctx: null, warnOsc: null, _warnLfo: null,
+    ensure() {
+      if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+      return this.ctx;
+    },
+    tone(freq, type, start, dur, gain = 0.15, slideTo = null) {
+      const ctx = this.ensure();
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = type; osc.frequency.setValueAtTime(freq, start);
+      if (slideTo != null) osc.frequency.exponentialRampToValueAtTime(Math.max(20, slideTo), start + dur);
+      g.gain.setValueAtTime(0.001, start);
+      g.gain.exponentialRampToValueAtTime(gain, start + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, start + dur);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(start); osc.stop(start + dur + 0.02);
+    },
+    noise(start, dur, gain = 0.08) {
+      const ctx = this.ensure();
+      const n = Math.floor(ctx.sampleRate * dur);
+      const buffer = ctx.createBuffer(1, n, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < n; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / n);
+      const src = ctx.createBufferSource(); const g = ctx.createGain();
+      const filter = ctx.createBiquadFilter(); filter.type = 'bandpass'; filter.frequency.value = 2200;
+      src.buffer = buffer;
+      g.gain.setValueAtTime(gain, start);
+      g.gain.exponentialRampToValueAtTime(0.001, start + dur);
+      src.connect(filter); filter.connect(g); g.connect(ctx.destination);
+      src.start(start);
+    },
+    playDrawAndSlash() {
+      const t = this.ensure().currentTime;
+      this.tone(980, 'sawtooth', t, 0.07, 0.11, 1600);
+      this.noise(t, 0.09, 0.07);
+      this.tone(240, 'square', t + 0.08, 0.2, 0.13, 70);
+      this.noise(t + 0.08, 0.22, 0.11);
+    },
+    playParryFail() {
+      const t = this.ensure().currentTime;
+      this.tone(170, 'triangle', t, 0.16, 0.14, 80);
+      this.noise(t, 0.22, 0.13);
+    },
+    playHit() {
+      const t = this.ensure().currentTime;
+      this.tone(85, 'sine', t, 0.28, 0.16, 35);
+      this.noise(t, 0.16, 0.09);
+    },
+    playUlt() {
+      const t = this.ensure().currentTime;
+      this.tone(220, 'sawtooth', t, 0.35, 0.14, 880);
+      this.tone(440, 'sine', t + 0.12, 0.4, 0.12, 160);
+      this.noise(t + 0.18, 0.4, 0.14);
+    },
+    startWarnHum() {
+      this.stopWarnHum();
+      const ctx = this.ensure();
+      this.warnOsc = ctx.createOscillator();
+      const g = ctx.createGain();
+      this.warnOsc.type = 'sawtooth'; this.warnOsc.frequency.value = 55;
+      g.gain.value = 0.035;
+      const lfo = ctx.createOscillator(); const lfoGain = ctx.createGain();
+      lfo.frequency.value = 6; lfoGain.gain.value = 0.02;
+      lfo.connect(lfoGain); lfoGain.connect(g.gain);
+      this.warnOsc.connect(g); g.connect(ctx.destination);
+      this.warnOsc.start(); lfo.start();
+      this._warnLfo = lfo;
+    },
+    stopWarnHum() {
+      try { this.warnOsc && this.warnOsc.stop(); } catch (_) {}
+      try { this._warnLfo && this._warnLfo.stop(); } catch (_) {}
+      this.warnOsc = null; this._warnLfo = null;
+    }
+  };
+
+  const FxLayer = {
+    canvas: null, ctx: null, particles: [], slash: null, enemySlash: null, w: 0, h: 0,
+    init() {
+      this.canvas = document.getElementById('fx-canvas');
+      this.ctx = this.canvas.getContext('2d');
+      this.resize();
+      window.addEventListener('resize', () => this.resize());
+      this.loop();
+    },
+    resize() {
+      const arena = document.getElementById('arena');
+      const rect = arena.getBoundingClientRect();
+      this.canvas.width = rect.width * devicePixelRatio;
+      this.canvas.height = rect.height * devicePixelRatio;
+      this.ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      this.w = rect.width; this.h = rect.height;
+    },
+    spawnSlash(crit = false) {
+      this.slash = {
+        t: 0, duration: 0.5,
+        x0: this.w * 0.26, y0: this.h * 0.5,
+        x1: this.w * 0.8, y1: this.h * 0.3,
+        crit
+      };
+      const n = crit ? 48 : 32;
+      for (let i = 0; i < n; i++) {
+        this.particles.push({
+          x: this.w * 0.58 + (Math.random() - 0.5) * 55,
+          y: this.h * 0.4 + (Math.random() - 0.5) * 45,
+          vx: (Math.random() - 0.1) * 8, vy: (Math.random() - 0.5) * 6,
+          life: 0.55 + Math.random() * 0.4, age: 0,
+          color: crit ? (Math.random() > 0.5 ? '#fde68a' : '#f59e0b') : (Math.random() > 0.4 ? '#fbbf24' : '#e2e8f0'),
+          size: 2 + Math.random() * 4
+        });
+      }
+    },
+    spawnEnemySlash() {
+      this.enemySlash = { t: 0, duration: 0.4, x0: this.w * 0.74, y0: this.h * 0.38, x1: this.w * 0.26, y1: this.h * 0.52 };
+      for (let i = 0; i < 18; i++) {
+        this.particles.push({
+          x: this.w * 0.38, y: this.h * 0.46,
+          vx: (Math.random() - 0.75) * 6, vy: (Math.random() - 0.5) * 4,
+          life: 0.45, age: 0, color: '#f87171', size: 2 + Math.random() * 3
+        });
+      }
+    },
+    shake() {
+      const root = document.getElementById('arena');
+      root.classList.remove('shake-screen'); void root.offsetWidth;
+      root.classList.add('shake-screen');
+      setTimeout(() => root.classList.remove('shake-screen'), 400);
+    },
+    loop() {
+      const ctx = this.ctx; if (!ctx) return;
+      ctx.clearRect(0, 0, this.w, this.h);
+      const dt = 1 / 60;
+      const drawArc = (s, colorFn) => {
+        const p = Math.min(1, s.t / s.duration);
+        const ease = 1 - Math.pow(1 - p, 3);
+        ctx.save();
+        ctx.strokeStyle = colorFn(1 - p);
+        ctx.lineWidth = (s.crit ? 10 : 7) * (1 - p * 0.4);
+        ctx.lineCap = 'round'; ctx.shadowColor = colorFn(1); ctx.shadowBlur = 22;
+        ctx.beginPath();
+        const mx = (s.x0 + s.x1) / 2, my = Math.min(s.y0, s.y1) - 48;
+        ctx.moveTo(s.x0, s.y0);
+        ctx.quadraticCurveTo(mx, my, s.x0 + (s.x1 - s.x0) * ease, s.y0 + (s.y1 - s.y0) * ease);
+        ctx.stroke(); ctx.restore();
+        return p >= 1;
+      };
+      if (this.slash) {
+        this.slash.t += dt;
+        if (drawArc(this.slash, (a) => `rgba(251,191,36,${a})`)) this.slash = null;
+      }
+      if (this.enemySlash) {
+        this.enemySlash.t += dt;
+        if (drawArc(this.enemySlash, (a) => `rgba(248,113,113,${a})`)) this.enemySlash = null;
+      }
+      this.particles = this.particles.filter((pt) => {
+        pt.age += dt; pt.x += pt.vx; pt.y += pt.vy; pt.vy += 0.09;
+        const alpha = 1 - pt.age / pt.life;
+        if (alpha <= 0) return false;
+        ctx.globalAlpha = alpha; ctx.fillStyle = pt.color;
+        ctx.beginPath(); ctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2); ctx.fill();
+        ctx.globalAlpha = 1; return true;
+      });
+      requestAnimationFrame(() => this.loop());
+    }
+  };
+
+  const state = {
+    stageIndex: 0, questionIndex: 0,
+    mulanHp: MULAN_MAX_HP, enemyHp: 0, enemyMaxHp: 0,
+    combo: 0, maxCombo: 0, rage: 0,
+    inputLocked: false, awaitingRetry: false,
+    correctCount: 0, attemptCount: 0,
+    timerLeft: TIMER_SECONDS, timerId: null,
+    questionStartedAt: 0, reactionTimes: [], warnActive: false
+  };
+
+  function currentStage() { return BATTLE_STAGES[state.stageIndex]; }
+  function currentQuestion() { return currentStage().questions[state.questionIndex]; }
+  function totalQuestionsAll() { return BATTLE_STAGES.reduce((n, s) => n + s.questions.length, 0); }
+  function globalProgressIndex() {
+    let n = 0;
+    for (let i = 0; i < state.stageIndex; i++) n += BATTLE_STAGES[i].questions.length;
+    return n + state.questionIndex + 1;
+  }
+  function damagePerHit() {
+    const stage = currentStage();
+    return Math.ceil(stage.enemyHp / stage.questions.length);
+  }
+
+  const UI = {
+    setButtonsEnabled(enabled) {
+      document.querySelectorAll('.skill-btn[data-key]').forEach((b) => { b.disabled = !enabled; });
+    },
+    renderHp() {
+      document.getElementById('mulan-hp-text').textContent = `${Math.max(0, state.mulanHp)}/${MULAN_MAX_HP}`;
+      document.getElementById('mulan-hp-bar').style.width = `${(Math.max(0, state.mulanHp) / MULAN_MAX_HP) * 100}%`;
+      document.getElementById('enemy-hp-text').textContent = `${Math.max(0, Math.round(state.enemyHp))}/${state.enemyMaxHp}`;
+      document.getElementById('enemy-hp-bar').style.width = `${(Math.max(0, state.enemyHp) / state.enemyMaxHp) * 100}%`;
+    },
+    renderCombo() {
+      const el = document.getElementById('hud-combo');
+      el.textContent = `×${state.combo}`;
+      el.classList.toggle('combo-fire', state.combo >= 2);
+      document.getElementById('rage-text').textContent = `${state.rage}/${RAGE_MAX}`;
+      document.getElementById('rage-bar').style.width = `${(state.rage / RAGE_MAX) * 100}%`;
+      document.getElementById('btn-ult').classList.toggle('ready', state.rage >= RAGE_MAX && !state.inputLocked && !state.awaitingRetry);
+    },
+    renderTimer() {
+      const pct = (state.timerLeft / TIMER_SECONDS) * 100;
+      const bar = document.getElementById('enemy-timer-bar');
+      const wrap = document.getElementById('timer-wrap');
+      const urgent = state.timerLeft <= 1.5;
+      bar.style.width = `${Math.max(0, pct)}%`;
+      bar.classList.toggle('is-urgent', urgent);
+      wrap.classList.toggle('is-urgent', urgent);
+      document.getElementById('timer-sec').textContent = `${Math.max(0, state.timerLeft).toFixed(1)}s`;
+      document.getElementById('enemy-sprite').classList.toggle('eyes-charge', urgent);
+      if (urgent && !state.warnActive && !state.inputLocked && !state.awaitingRetry) {
+        state.warnActive = true; AudioEngine.startWarnHum();
+      }
+      if (!urgent && state.warnActive) {
+        state.warnActive = false; AudioEngine.stopWarnHum();
+      }
+    },
+    renderQuestion() {
+      const stage = currentStage();
+      const q = currentQuestion();
+      document.getElementById('hud-chapter').textContent = stage.chapter;
+      document.getElementById('hud-enemy-name').textContent = stage.enemyName;
+      document.getElementById('hud-objective').textContent = stage.objective;
+      document.getElementById('hud-progress').textContent = `第 ${globalProgressIndex()}/${totalQuestionsAll()} 招式`;
+      document.getElementById('enemy-title').textContent = stage.enemyShort;
+      document.getElementById('timer-label').textContent = stage.chargeLabel;
+      document.getElementById('verse-source').textContent = q.source;
+      document.getElementById('verse-type').textContent = q.questionType;
+      document.getElementById('verse-text').innerHTML = q.verseHtml;
+      document.getElementById('verse-prompt').textContent = q.prompt;
+      document.getElementById('hint-line').textContent = '提示：懸停琥珀金字可窺心法秘笈';
+
+      ['assassin', 'general', 'poet'].forEach((v) => {
+        const el = document.getElementById(`enemy-svg-${v}`);
+        if (el) el.classList.toggle('hidden', stage.enemyVisual !== v);
+      });
+
+      q.options.forEach((opt) => {
+        const label = document.getElementById(`label-${opt.key}`);
+        if (label) label.textContent = opt.text;
+      });
+      this.renderHp(); this.renderCombo(); this.renderTimer();
+    },
+    showFloat(text, cls = '') {
+      const node = document.createElement('div');
+      node.className = `float-text ${cls}`.trim();
+      node.textContent = text;
+      document.getElementById('arena').appendChild(node);
+      setTimeout(() => node.remove(), 1200);
+    },
+    showTechnique(title, dmg) {
+      this.showFloat(`${title} -${dmg}HP`, 'technique');
+    },
+    showZan() {
+      const z = document.createElement('div');
+      z.className = 'zan-glyph'; z.textContent = '斬';
+      document.getElementById('arena').appendChild(z);
+      setTimeout(() => z.remove(), 900);
+    },
+    flashEnemy() {
+      const s = document.getElementById('enemy-sprite');
+      s.classList.remove('flash-white', 'knockback', 'enemy-lunge');
+      void s.offsetWidth;
+      s.classList.add('flash-white', 'knockback');
+      setTimeout(() => s.classList.remove('flash-white', 'knockback'), 550);
+    },
+    enemyThrust() {
+      const s = document.getElementById('enemy-sprite');
+      s.classList.remove('enemy-lunge'); void s.offsetWidth;
+      s.classList.add('enemy-lunge');
+      setTimeout(() => s.classList.remove('enemy-lunge'), 420);
+    },
+    lungeMulan() {
+      const s = document.getElementById('mulan-sprite');
+      s.classList.remove('idle-float', 'lunge-attack', 'mulan-recoil');
+      void s.offsetWidth; s.classList.add('lunge-attack');
+      setTimeout(() => { s.classList.remove('lunge-attack'); s.classList.add('idle-float'); }, 450);
+    },
+    recoilMulan() {
+      const s = document.getElementById('mulan-sprite');
+      s.classList.remove('idle-float', 'mulan-recoil'); void s.offsetWidth;
+      s.classList.add('mulan-recoil');
+      const shield = document.createElement('div');
+      shield.className = 'shield-burst'; s.appendChild(shield);
+      setTimeout(() => shield.remove(), 560);
+      setTimeout(() => { s.classList.remove('mulan-recoil'); s.classList.add('idle-float'); }, 560);
+    }
+  };
+
+  function stopTimer() {
+    if (state.timerId) { clearInterval(state.timerId); state.timerId = null; }
+    state.warnActive = false; AudioEngine.stopWarnHum();
+    document.getElementById('enemy-sprite').classList.remove('eyes-charge');
+    document.getElementById('timer-wrap').classList.remove('is-urgent');
+  }
+  function startTimer() {
+    stopTimer();
+    state.timerLeft = TIMER_SECONDS;
+    state.questionStartedAt = performance.now();
+    UI.renderTimer();
+    state.timerId = setInterval(() => {
+      if (state.inputLocked || state.awaitingRetry) return;
+      state.timerLeft -= 0.1; UI.renderTimer();
+      if (state.timerLeft <= 0) { stopTimer(); handleWrong(null, '氣力耗盡，敵將蓄力斬已至！'); }
+    }, 100);
+  }
+
+  function startStage(index) {
+    state.stageIndex = index; state.questionIndex = 0;
+    state.mulanHp = MULAN_MAX_HP;
+    state.enemyMaxHp = currentStage().enemyHp; state.enemyHp = state.enemyMaxHp;
+    state.combo = 0; state.maxCombo = 0; state.rage = 0;
+    state.inputLocked = false; state.awaitingRetry = false;
+    state.correctCount = 0; state.attemptCount = 0; state.reactionTimes = [];
+    document.getElementById('fail-modal').classList.add('hidden');
+    document.getElementById('victory-modal').classList.add('hidden');
+    document.getElementById('defeat-modal').classList.add('hidden');
+    UI.renderQuestion(); UI.setButtonsEnabled(true); startTimer();
+  }
+
+  function findOption(key) { return currentQuestion().options.find((o) => o.key === key); }
+  function recordReaction() {
+    state.reactionTimes.push((performance.now() - state.questionStartedAt) / 1000);
+  }
+
+  function handleAnswer(key) {
+    if (state.inputLocked || state.awaitingRetry) return;
+    const opt = findOption(key); if (!opt) return;
+    AudioEngine.ensure();
+    const btn = document.getElementById(`btn-${key}`);
+    if (btn) { btn.classList.add('is-pressed'); setTimeout(() => btn.classList.remove('is-pressed'), 150); }
+    state.attemptCount += 1; recordReaction();
+    if (opt.isCorrect) handleCorrect(false);
+    else handleWrong(opt);
+  }
+
+  function handleCorrect(isUlt) {
+    state.inputLocked = true; stopTimer();
+    state.correctCount += 1; state.combo += 1;
+    if (state.combo > state.maxCombo) state.maxCombo = state.combo;
+    if (!isUlt) state.rage = Math.min(RAGE_MAX, state.rage + 1);
+
+    let dmg = isUlt ? ULT_DAMAGE : damagePerHit();
+    const title = isUlt ? '【神來之筆 · 書斬！】' : (currentQuestion().techniqueTitle || '【破招成功！】');
+
+    if (isUlt) {
+      AudioEngine.playUlt();
+      const freeze = document.createElement('div');
+      freeze.className = 'ink-freeze'; document.body.appendChild(freeze);
+      setTimeout(() => freeze.remove(), 900);
+      UI.showZan();
+      FxLayer.spawnSlash(true);
+      UI.showFloat('神來之筆 · 水墨領域', 'ult');
+      setTimeout(() => UI.showTechnique(title, dmg), 200);
+    } else {
+      AudioEngine.playDrawAndSlash();
+      FxLayer.spawnSlash(false);
+      UI.showTechnique(title, dmg);
+    }
+
+    UI.lungeMulan(); FxLayer.shake();
+    setTimeout(() => { UI.flashEnemy(); AudioEngine.playHit(); }, 100);
+
+    state.enemyHp = Math.max(0, state.enemyHp - dmg);
+    if (isUlt) state.rage = 0;
+    UI.renderHp(); UI.renderCombo(); UI.setButtonsEnabled(false);
+
+    setTimeout(() => {
+      if (state.enemyHp <= 0) showVictory();
+      else advanceQuestion();
+    }, isUlt ? 900 : 650);
+  }
+
+  function handleWrong(opt, customMsg) {
+    state.inputLocked = true; stopTimer();
+    state.combo = 0; state.rage = 0;
+    state.mulanHp = Math.max(0, state.mulanHp - DAMAGE_TO_MULAN);
+    UI.renderHp(); UI.renderCombo();
+    AudioEngine.playParryFail();
+    UI.enemyThrust();
+    FxLayer.spawnEnemySlash(); FxLayer.shake();
+    UI.recoilMulan();
+    UI.showFloat(`招架偏折！-${DAMAGE_TO_MULAN}HP`, 'hurt');
+    UI.setButtonsEnabled(false);
+
+    if (state.mulanHp <= 0) {
+      document.getElementById('defeat-modal').classList.remove('hidden');
+      return;
+    }
+
+    // 勒馬推演：短暫停頓後展開心法密卷
+    setTimeout(() => {
+      const analysis = customMsg || (opt ? opt.analysis : '招架失手。');
+      const correct = currentQuestion().options.find((o) => o.isCorrect);
+      document.getElementById('fail-analysis').textContent =
+        `${analysis}${correct ? ` 正解：${correct.text}` : ''}`;
+      document.getElementById('fail-hint').textContent =
+        `心法密卷：${currentQuestion().scaffoldHint || '細讀關鍵字，辨明記敘身法。'}`;
+      state.awaitingRetry = true;
+      document.getElementById('fail-modal').classList.remove('hidden');
+    }, 1500);
+  }
+
+  function castUltimate() {
+    if (state.inputLocked || state.awaitingRetry || state.rage < RAGE_MAX) return;
+    AudioEngine.ensure();
+    state.attemptCount += 1; recordReaction();
+    handleCorrect(true);
+  }
+
+  function onRetryChoice() {
+    document.getElementById('fail-modal').classList.add('hidden');
+    state.awaitingRetry = false; state.inputLocked = false;
+    UI.setButtonsEnabled(true); UI.renderCombo(); startTimer();
+  }
+  function onEndureChoice() {
+    document.getElementById('fail-modal').classList.add('hidden');
+    state.awaitingRetry = false;
+    if (state.questionIndex >= currentStage().questions.length - 1) { showVictory(); return; }
+    state.questionIndex += 1; state.inputLocked = false;
+    UI.renderQuestion(); UI.setButtonsEnabled(true); startTimer();
+  }
+  function advanceQuestion() {
+    if (state.questionIndex >= currentStage().questions.length - 1) {
+      state.enemyHp = 0; UI.renderHp(); showVictory(); return;
+    }
+    state.questionIndex += 1; state.inputLocked = false;
+    UI.renderQuestion(); UI.setButtonsEnabled(true); startTimer();
+  }
+
+  function avgReaction() {
+    if (!state.reactionTimes.length) return 0.8;
+    return state.reactionTimes.reduce((a, b) => a + b, 0) / state.reactionTimes.length;
+  }
+
+  function showVictory() {
+    stopTimer(); state.inputLocked = true; UI.setButtonsEnabled(false);
+    document.getElementById('btn-ult').classList.remove('ready');
+
+    const accuracy = state.attemptCount > 0 ? Math.round((state.correctCount / state.attemptCount) * 100) : 100;
+    const speed = avgReaction();
+    let rank = '江湖新秀';
+    if (accuracy >= 100 && speed <= 3) rank = '破陣宗師';
+    else if (accuracy >= 100) rank = '甲級破陣使';
+    else if (accuracy >= 70) rank = '乙級破陣使';
+    else rank = '丙級破陣使';
+
+    document.getElementById('victory-rank').textContent = rank;
+    document.getElementById('stat-mastery').textContent = `${accuracy}%`;
+    document.getElementById('stat-speed').textContent = `${speed.toFixed(1)} 秒/招`;
+    document.getElementById('stat-combo').textContent = `×${state.maxCombo}`;
+    document.getElementById('victory-detail').textContent =
+      `${currentStage().chapter}——正解 ${state.correctCount} / 出招 ${state.attemptCount}`;
+    document.getElementById('victory-expert').textContent =
+      '專家評語：已掌握呈分試／初中文言常考之記敘手法與人稱辨析本能反應。';
+
+    const speedScore = Math.max(0, Math.min(100, Math.round((1 - (speed - 1) / 8) * 100)));
+    const comboScore = Math.min(100, state.maxCombo * 34);
+    document.getElementById('victory-modal').classList.remove('hidden');
+    requestAnimationFrame(() => {
+      document.getElementById('bar-mastery').style.width = `${accuracy}%`;
+      document.getElementById('bar-speed').style.width = `${speedScore}%`;
+      document.getElementById('bar-combo').style.width = `${comboScore}%`;
+    });
+
+    document.getElementById('btn-next-stage').textContent =
+      state.stageIndex >= BATTLE_STAGES.length - 1 ? '三關破陣 · 重頭再戰' : '進擊下一關';
+  }
+
+  function spawnDecor() {
+    const sand = document.getElementById('sand-layer');
+    for (let i = 0; i < 14; i++) {
+      const d = document.createElement('div');
+      d.className = 'sand-particle';
+      d.style.left = `${30 + Math.random() * 60}%`;
+      d.style.top = `${20 + Math.random() * 55}%`;
+      d.style.animationDuration = `${3 + Math.random() * 5}s`;
+      d.style.animationDelay = `${Math.random() * 4}s`;
+      sand.appendChild(d);
+    }
+    const motes = document.getElementById('ink-motes');
+    for (let i = 0; i < 8; i++) {
+      const m = document.createElement('div');
+      m.className = 'ink-mote';
+      const size = 3 + Math.random() * 5;
+      m.style.width = `${size}px`; m.style.height = `${size}px`;
+      m.style.left = `${55 + Math.random() * 35}%`;
+      m.style.top = `${25 + Math.random() * 50}%`;
+      m.style.animationDelay = `${Math.random() * 2}s`;
+      motes.appendChild(m);
+    }
+  }
+
+  function bindInput() {
+    document.querySelectorAll('.skill-btn[data-key]').forEach((btn) => {
+      btn.addEventListener('click', () => { AudioEngine.ensure(); handleAnswer(btn.dataset.key); });
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.repeat) return;
+      if (e.code === 'Space' || e.key === ' ') { e.preventDefault(); castUltimate(); return; }
+      const key = KEY_MAP[e.key]; if (!key) return;
+      e.preventDefault(); AudioEngine.ensure(); handleAnswer(key);
+    });
+    document.getElementById('btn-ult').addEventListener('click', castUltimate);
+    document.getElementById('btn-retry').addEventListener('click', () => { AudioEngine.ensure(); onRetryChoice(); });
+    document.getElementById('btn-endure').addEventListener('click', () => { AudioEngine.ensure(); onEndureChoice(); });
+    document.getElementById('btn-next-stage').addEventListener('click', () => {
+      AudioEngine.ensure();
+      document.getElementById('victory-modal').classList.add('hidden');
+      if (state.stageIndex >= BATTLE_STAGES.length - 1) startStage(0);
+      else startStage(state.stageIndex + 1);
+    });
+    document.getElementById('btn-restart').addEventListener('click', () => {
+      AudioEngine.ensure();
+      document.getElementById('victory-modal').classList.add('hidden');
+      startStage(state.stageIndex);
+    });
+    document.getElementById('btn-retry-stage').addEventListener('click', () => {
+      AudioEngine.ensure();
+      document.getElementById('defeat-modal').classList.add('hidden');
+      startStage(state.stageIndex);
+    });
+    document.getElementById('btn-share').addEventListener('click', () => {
+      const toast = document.getElementById('share-toast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2800);
+    });
+  }
+
+  function boot() {
+    FxLayer.init(); spawnDecor(); bindInput(); startStage(0);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  </script>
+</body>
+</html>
