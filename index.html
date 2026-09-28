@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#090d16" />
   <title>木蘭破陣訣：記敘心法對決</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -126,11 +127,7 @@
     .eyes-charge #assassin-eyes,
     .eyes-charge #general-eyes,
     .eyes-charge #poet-eyes {
-      animation: eyesGlow 0.35s ease-in-out infinite alternate;
-    }
-    @keyframes eyesGlow {
-      from { fill: #f87171; filter: drop-shadow(0 0 2px #ef4444); }
-      to { fill: #fecaca; filter: drop-shadow(0 0 10px #ef4444); }
+      animation: none;
     }
     .shake-screen { animation: shakeScreen 0.38s ease-out; }
     @keyframes shakeScreen {
@@ -294,15 +291,34 @@
     }
 
     .modal-backdrop { background: rgba(0,0,0,0.75); backdrop-filter: blur(5px); }
-    .char-svg {
-      width: 100%; max-width: 168px; height: auto;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,0.5));
+    .char-art {
+      width: min(42vw, 168px); height: auto; max-height: 42vh;
+      object-fit: contain; object-position: bottom center;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55));
+      display: block; margin: 0 auto;
+      user-select: none; -webkit-user-drag: none;
+    }
+    @media (min-width: 640px) {
+      .char-art { width: min(36vw, 200px); max-height: 46vh; }
     }
     @media (min-width: 768px) {
-      .char-svg { max-width: 210px; }
+      .char-art { width: min(28vw, 230px); max-height: 50vh; }
       .float-text { font-size: 1.25rem; }
       .float-text.technique { font-size: 1.45rem; }
       .float-text.ult { font-size: 1.7rem; }
+    }
+    @media (max-width: 380px) {
+      .char-art { width: min(40vw, 120px); max-height: 28vh; }
+      .skill-btn { min-height: 48px; padding: 0.5rem 0.6rem; }
+      .skill-label { font-size: 0.75rem; }
+    }
+    .eyes-charge .char-art {
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(239,68,68,0.85));
+      animation: charCharge 0.35s ease-in-out infinite alternate;
+    }
+    @keyframes charCharge {
+      from { filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55)) drop-shadow(0 0 8px rgba(239,68,68,0.5)); }
+      to { filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55)) drop-shadow(0 0 18px rgba(248,113,113,1)); }
     }
     #fx-canvas {
       position: absolute; inset: 0; width: 100%; height: 100%;
@@ -372,7 +388,7 @@
   </style>
 </head>
 <body>
-  <div id="game-root" class="max-w-4xl mx-auto min-h-dvh flex flex-col px-3 py-3 sm:px-5 sm:py-4 gap-3">
+  <div id="game-root" class="max-w-4xl mx-auto min-h-dvh flex flex-col px-2 py-2 sm:px-5 sm:py-4 gap-2 sm:gap-3 w-full">
 
     <header class="panel-glow rounded-lg px-3 py-2.5 sm:px-4 grid grid-cols-3 gap-2 items-center">
       <div class="min-w-0">
@@ -406,7 +422,7 @@
         <div class="ground-line"></div>
       </div>
 
-      <div class="relative z-10 grid grid-cols-2 gap-1 sm:gap-4 px-2 sm:px-6 pt-4 pb-4 min-h-[240px] sm:min-h-[280px]">
+      <div class="relative z-10 grid grid-cols-2 gap-1 sm:gap-4 px-1 sm:px-6 pt-3 pb-3 sm:pt-4 sm:pb-4 min-h-[200px] sm:min-h-[280px] items-end">
         <canvas id="fx-canvas"></canvas>
 
         <!-- Mulan -->
@@ -428,96 +444,7 @@
             </div>
           </div>
           <div id="mulan-sprite" class="idle-float relative">
-            <!-- High-detail Mulan SVG -->
-            <svg class="char-svg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="木蘭立繪">
-              <defs>
-                <linearGradient id="mArmor" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#2a4a6e"/><stop offset="45%" stop-color="#1a3352"/><stop offset="100%" stop-color="#0a1628"/>
-                </linearGradient>
-                <linearGradient id="mCloak" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#9f1239"/><stop offset="40%" stop-color="#be123c"/><stop offset="100%" stop-color="#4c0519"/>
-                </linearGradient>
-                <linearGradient id="mBlade" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#f8fafc"/><stop offset="35%" stop-color="#e2e8f0"/><stop offset="70%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#64748b"/>
-                </linearGradient>
-                <linearGradient id="mGold" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#fef3c7"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/>
-                </linearGradient>
-                <linearGradient id="mSkin" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#f5d0b0"/><stop offset="100%" stop-color="#d4a574"/>
-                </linearGradient>
-                <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="1.2" result="b"/>
-                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-              <!-- cloak back layer -->
-              <g class="cloak-sway">
-                <path d="M52 78 C18 95 12 140 28 175 C40 168 48 150 55 125 C58 108 60 90 62 80 Z" fill="url(#mCloak)" opacity="0.95"/>
-                <path d="M58 82 C30 105 26 145 38 172" stroke="#4c0519" stroke-width="1.5" fill="none" opacity="0.5"/>
-                <path d="M95 80 C130 100 138 145 122 178 C110 170 102 150 96 128 C92 110 90 92 88 82 Z" fill="url(#mCloak)" opacity="0.75"/>
-              </g>
-              <!-- boots / legs -->
-              <path d="M58 145 C54 165 50 188 48 198 L62 200 C64 185 66 165 68 148 Z" fill="#1e293b"/>
-              <path d="M86 146 C88 165 90 188 92 198 L106 200 C104 185 100 165 96 148 Z" fill="#1e293b"/>
-              <path d="M46 196 C50 202 60 203 64 198" stroke="#0f172a" stroke-width="3" fill="none"/>
-              <path d="M90 196 C94 202 104 203 108 198" stroke="#0f172a" stroke-width="3" fill="none"/>
-              <!-- skirt panels -->
-              <path d="M50 128 C70 138 90 138 110 128 L108 150 C88 162 68 162 48 150 Z" fill="#1e3a5f"/>
-              <path d="M52 130 C72 142 92 142 108 130" stroke="#c9a227" stroke-width="1.2" fill="none" opacity="0.6"/>
-              <!-- torso armor with plates -->
-              <path d="M54 72 C78 60 102 72 106 76 L110 128 C88 140 68 140 50 128 Z" fill="url(#mArmor)"/>
-              <path d="M58 86 C78 78 98 86 102 90" stroke="url(#mGold)" stroke-width="2.2" fill="none"/>
-              <path d="M60 100 C78 94 96 100 100 104" stroke="#64748b" stroke-width="1.4" fill="none" opacity="0.75"/>
-              <path d="M62 112 C78 108 94 112 98 115" stroke="#475569" stroke-width="1" fill="none" opacity="0.5"/>
-              <!-- waist sash + hanging tassel -->
-              <path d="M50 118 C78 128 106 118 108 120 L106 132 C78 142 52 132 50 130 Z" fill="#9f1239"/>
-              <g class="tassel-sway">
-                <path d="M104 124 C118 138 124 158 120 172" stroke="#be123c" stroke-width="4" fill="none" stroke-linecap="round"/>
-                <path d="M118 170 L116 178 M120 170 L124 178 M122 170 L120 180" stroke="#f43f5e" stroke-width="1.5"/>
-              </g>
-              <!-- left arm -->
-              <path d="M52 78 C38 95 28 118 34 128 C42 124 48 110 54 92 Z" fill="url(#mArmor)"/>
-              <ellipse cx="34" cy="126" rx="7" ry="5" fill="#334155"/>
-              <rect x="28" y="122" width="10" height="6" rx="1" fill="url(#mGold)" opacity="0.8"/>
-              <!-- right arm + yanling blade -->
-              <path d="M104 78 C118 92 128 112 124 124 C116 122 110 108 104 90 Z" fill="url(#mArmor)"/>
-              <g transform="translate(118,48) rotate(22)" filter="url(#softGlow)">
-                <path d="M4 18 L10 18 L12 95 L6 98 L2 95 Z" fill="url(#mBlade)"/>
-                <path d="M5 18 L9 18 L10 70 L6 70 Z" fill="#ffffff" opacity="0.35"/>
-                <polygon points="3,18 11,18 7,-8" fill="#f1f5f9"/>
-                <rect x="0" y="95" width="14" height="6" rx="1" fill="url(#mGold)"/>
-                <rect x="4" y="101" width="6" height="18" rx="1" fill="#78350f"/>
-                <circle cx="7" cy="121" r="3.5" fill="#fbbf24"/>
-                <path d="M7 101 L7 118" stroke="#c9a227" stroke-width="0.8"/>
-              </g>
-              <!-- neck / collar -->
-              <path d="M68 68 C78 64 88 68 90 72 L86 78 C78 74 70 74 66 78 Z" fill="#1e293b"/>
-              <!-- head -->
-              <ellipse cx="78" cy="48" rx="17" ry="19" fill="url(#mSkin)"/>
-              <!-- hair -->
-              <path d="M60 48 C58 28 70 18 78 18 C90 18 100 30 96 50 C92 42 84 38 78 38 C70 38 64 42 60 48 Z" fill="#1c1917"/>
-              <path d="M62 40 C60 52 58 62 62 68" fill="#0c0a09"/>
-              <path d="M94 42 C98 54 100 64 96 70" fill="#0c0a09"/>
-              <!-- forehead band + crown -->
-              <path d="M62 40 C78 34 94 40 96 42 L94 48 C78 42 64 48 62 46 Z" fill="#0f172a"/>
-              <path d="M70 28 L78 10 L86 28" fill="url(#mGold)"/>
-              <circle cx="78" cy="16" r="3.5" fill="#fde68a"/>
-              <circle cx="78" cy="16" r="1.5" fill="#b45309"/>
-              <!-- red ribbons -->
-              <g class="ribbon-sway">
-                <path d="M88 32 C102 28 112 40 108 55 C104 48 98 40 90 38" fill="#be123c"/>
-                <path d="M90 34 C104 36 114 50 110 62" stroke="#9f1239" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              </g>
-              <g class="ribbon-sway" style="animation-delay: -0.8s">
-                <path d="M68 30 C54 26 44 38 48 52" stroke="#be123c" stroke-width="3" fill="none" stroke-linecap="round"/>
-              </g>
-              <!-- face details -->
-              <ellipse cx="72" cy="48" rx="2.2" ry="2.8" fill="#1c1917"/>
-              <ellipse cx="86" cy="48" rx="2.2" ry="2.8" fill="#1c1917"/>
-              <path d="M74 56 Q78 59 82 56" stroke="#b45309" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-              <ellipse cx="78" cy="52" rx="3" ry="1.5" fill="#f5d0b0" opacity="0.4"/>
-            </svg>
+            <img class="char-art" src="assets/mulan.png" alt="巾幗劍仙 木蘭" width="230" height="307" decoding="async" />
           </div>
         </div>
 
@@ -540,144 +467,9 @@
             </div>
           </div>
           <div id="enemy-sprite" class="enemy-sway relative">
-            <!-- Assassin -->
-            <svg id="enemy-svg-assassin" class="char-svg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="刺客立繪">
-              <defs>
-                <linearGradient id="aCloak" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#020617"/>
-                </linearGradient>
-                <linearGradient id="aDagger" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#a7f3d0"/><stop offset="50%" stop-color="#34d399"/><stop offset="100%" stop-color="#064e3b"/>
-                </linearGradient>
-                <radialGradient id="aAura" cx="50%" cy="45%" r="50%">
-                  <stop offset="60%" stop-color="rgba(15,10,30,0)"/><stop offset="100%" stop-color="rgba(20,10,40,0.55)"/>
-                </radialGradient>
-              </defs>
-              <ellipse class="aura-pulse" cx="80" cy="120" rx="55" ry="78" fill="url(#aAura)"/>
-              <path d="M42 62 C80 40 118 62 122 70 L128 168 C80 188 36 168 34 160 Z" fill="url(#aCloak)"/>
-              <path d="M48 78 C80 58 112 78 116 84" stroke="#1e293b" stroke-width="2" fill="none"/>
-              <path d="M55 78 C50 110 48 145 58 175 L72 176 C68 145 70 110 74 82 Z" fill="#0f172a"/>
-              <path d="M90 82 C94 110 96 145 92 176 L106 175 C112 145 110 110 102 80 Z" fill="#0f172a"/>
-              <!-- reverse-grip daggers -->
-              <g transform="translate(22,95) rotate(-48)">
-                <rect x="0" y="0" width="48" height="4" rx="1" fill="url(#aDagger)"/>
-                <polygon points="48,2 64,-5 64,9" fill="#ecfdf5"/>
-                <rect x="-8" y="-3" width="10" height="10" rx="1" fill="#334155"/>
-                <circle cx="-3" cy="2" r="2" fill="#10b981" opacity="0.8"/>
-              </g>
-              <g transform="translate(108,100) rotate(50)">
-                <rect x="0" y="0" width="46" height="4" rx="1" fill="url(#aDagger)"/>
-                <polygon points="46,2 62,-5 62,9" fill="#ecfdf5"/>
-                <rect x="-8" y="-3" width="10" height="10" rx="1" fill="#334155"/>
-              </g>
-              <!-- hood + veil -->
-              <path d="M55 55 C80 30 108 55 110 62 L105 78 C80 68 58 78 52 70 Z" fill="#1e293b"/>
-              <ellipse cx="80" cy="58" rx="20" ry="17" fill="#334155"/>
-              <g class="veil-flutter">
-                <path d="M60 56 C80 72 100 56 102 60 L100 82 C80 94 60 82 58 78 Z" fill="#0f172a"/>
-                <path d="M64 64 C80 74 96 64 98 66" stroke="#475569" stroke-width="1" fill="none"/>
-              </g>
-              <g id="assassin-eyes">
-                <rect x="68" y="58" width="11" height="2.8" rx="1" fill="#94a3b8"/>
-                <rect x="84" y="58" width="11" height="2.8" rx="1" fill="#94a3b8"/>
-              </g>
-            </svg>
-
-            <!-- General / Cavalry -->
-            <svg id="enemy-svg-general" class="char-svg hidden" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="騎督立繪">
-              <defs>
-                <linearGradient id="gArmor" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#a8a29e"/><stop offset="40%" stop-color="#78716c"/><stop offset="100%" stop-color="#1c1917"/>
-                </linearGradient>
-                <linearGradient id="gGold" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#92400e"/>
-                </linearGradient>
-                <radialGradient id="gAura" cx="50%" cy="40%" r="55%">
-                  <stop offset="50%" stop-color="rgba(40,20,10,0)"/><stop offset="100%" stop-color="rgba(60,20,10,0.45)"/>
-                </radialGradient>
-              </defs>
-              <ellipse class="aura-pulse" cx="80" cy="118" rx="58" ry="80" fill="url(#gAura)"/>
-              <!-- body -->
-              <path d="M40 70 C80 48 120 70 124 78 L118 158 C80 178 42 158 38 150 Z" fill="url(#gArmor)"/>
-              <!-- beast-head pauldrons -->
-              <path d="M28 72 C18 68 14 88 24 98 C32 92 38 82 40 76 Z" fill="#57534e"/>
-              <path d="M24 78 C20 74 22 70 28 72" fill="#a8a29e"/>
-              <circle cx="26" cy="80" r="2.5" fill="#f87171"/>
-              <path d="M132 72 C142 68 146 88 136 98 C128 92 122 82 120 76 Z" fill="#57534e"/>
-              <path d="M136 78 C140 74 138 70 132 72" fill="#a8a29e"/>
-              <circle cx="134" cy="80" r="2.5" fill="#f87171"/>
-              <!-- chest plate + belt -->
-              <path d="M52 88 C80 78 108 88 112 94 L108 118 C80 128 52 118 48 112 Z" fill="#44403c"/>
-              <rect x="50" y="100" width="60" height="9" rx="1" fill="url(#gGold)" opacity="0.75"/>
-              <path d="M55 122 L105 122" stroke="#78716c" stroke-width="2"/>
-              <!-- legs -->
-              <path d="M55 155 L48 198 L66 200 L70 158 Z" fill="#292524"/>
-              <path d="M92 158 L96 200 L114 198 L105 155 Z" fill="#292524"/>
-              <!-- snake spear -->
-              <g transform="translate(118,40)">
-                <rect x="1" y="10" width="5" height="130" fill="#44403c"/>
-                <path d="M-4 10 C8 -8 18 4 10 18 C4 10 -2 14 -4 10 Z" fill="#a8a29e"/>
-                <path d="M3 0 L6 14 L0 12 Z" fill="#e7e5e4"/>
-                <circle cx="3.5" cy="20" r="6" fill="url(#gGold)"/>
-              </g>
-              <!-- wolf helm -->
-              <ellipse cx="80" cy="52" rx="24" ry="22" fill="#44403c"/>
-              <path d="M58 48 C80 20 102 48 104 52 L96 62 C80 52 64 62 56 56 Z" fill="#78716c"/>
-              <path d="M62 30 L70 18 L74 32" fill="#a8a29e"/>
-              <path d="M98 30 L90 16 L86 32" fill="#a8a29e"/>
-              <circle cx="80" cy="28" r="4" fill="#fbbf24"/>
-              <path d="M70 58 L90 58 L85 72 L75 72 Z" fill="#1c1917"/>
-              <g id="general-eyes">
-                <ellipse cx="70" cy="54" rx="4" ry="2.5" fill="#fca5a5"/>
-                <ellipse cx="90" cy="54" rx="4" ry="2.5" fill="#fca5a5"/>
-              </g>
-            </svg>
-
-            <!-- Li Bai poet-sword spirit -->
-            <svg id="enemy-svg-poet" class="char-svg hidden" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-label="李白劍魂">
-              <defs>
-                <linearGradient id="pRobe" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#e2e8f0"/><stop offset="50%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#334155"/>
-                </linearGradient>
-                <linearGradient id="pInk" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#020617"/>
-                </linearGradient>
-                <radialGradient id="pAura" cx="50%" cy="40%" r="50%">
-                  <stop offset="40%" stop-color="rgba(148,163,184,0)"/><stop offset="100%" stop-color="rgba(100,116,139,0.4)"/>
-                </radialGradient>
-                <filter id="pGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="1.2" result="b"/>
-                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-              <ellipse class="aura-pulse" cx="80" cy="115" rx="52" ry="75" fill="url(#pAura)"/>
-              <path d="M48 68 C80 52 112 68 116 76 L110 165 C80 182 48 165 44 156 Z" fill="url(#pRobe)"/>
-              <path d="M70 70 L80 150 L90 70" fill="#f8fafc" opacity="0.35"/>
-              <path d="M55 100 C80 110 105 100 108 104" stroke="#64748b" stroke-width="1.5" fill="none"/>
-              <path d="M58 155 L52 198 L68 200 L72 158 Z" fill="#1e293b"/>
-              <path d="M90 158 L94 200 L110 198 L104 155 Z" fill="#1e293b"/>
-              <!-- floating sword -->
-              <g transform="translate(115,55) rotate(12)" filter="url(#pGlow)">
-                <rect x="3" y="0" width="3.5" height="85" fill="#cbd5e1"/>
-                <polygon points="2,0 8,0 5.5,-14" fill="#f8fafc"/>
-                <rect x="0" y="85" width="10" height="4" fill="#c9a227"/>
-              </g>
-              <!-- scroll in left hand -->
-              <g transform="translate(28,100) rotate(-20)">
-                <rect x="0" y="0" width="28" height="36" rx="2" fill="#e8d5a8"/>
-                <path d="M4 8 H24 M4 14 H20 M4 20 H22" stroke="#92400e" stroke-width="1" opacity="0.5"/>
-              </g>
-              <!-- head + scholar hat -->
-              <ellipse cx="80" cy="52" rx="18" ry="20" fill="#e8c4a0"/>
-              <path d="M62 48 C64 28 80 22 96 30 C98 45 94 52 90 55 C84 48 72 46 62 48 Z" fill="#1c1917"/>
-              <rect x="60" y="28" width="40" height="8" rx="1" fill="url(#pInk)"/>
-              <rect x="74" y="14" width="12" height="16" fill="#1e293b"/>
-              <g id="poet-eyes">
-                <ellipse cx="72" cy="52" rx="2.5" ry="3" fill="#1c1917"/>
-                <ellipse cx="88" cy="52" rx="2.5" ry="3" fill="#1c1917"/>
-              </g>
-              <path d="M74 60 Q80 64 86 60" stroke="#b45309" stroke-width="1.2" fill="none"/>
-            </svg>
+            <img id="enemy-svg-assassin" class="char-art" src="assets/assassin.png" alt="幽陵刺客" width="230" height="307" decoding="async" />
+            <img id="enemy-svg-general" class="char-art hidden" src="assets/general.png" alt="漠北騎督" width="230" height="307" decoding="async" />
+            <img id="enemy-svg-poet" class="char-art hidden" src="assets/poet.png" alt="李白劍魂" width="230" height="307" decoding="async" />
           </div>
         </div>
       </div>
