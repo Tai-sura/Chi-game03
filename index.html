@@ -294,11 +294,18 @@
     .char-art {
       width: min(42vw, 168px); height: auto; max-height: 42vh;
       object-fit: contain; object-position: bottom center;
-      filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55));
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 18px rgba(148, 180, 220, 0.22));
       display: block; margin: 0 auto;
       user-select: none; -webkit-user-drag: none;
       background: transparent !important;
       mix-blend-mode: normal;
+      image-rendering: auto;
+    }
+    #mulan-sprite .char-art {
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.5)) drop-shadow(0 0 16px rgba(251, 191, 36, 0.18));
+    }
+    #enemy-sprite .char-art {
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 20px rgba(125, 211, 252, 0.28));
     }
     #mulan-sprite, #enemy-sprite {
       background: transparent !important;
@@ -319,12 +326,12 @@
       .skill-label { font-size: 0.75rem; }
     }
     .eyes-charge .char-art {
-      filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(239,68,68,0.85));
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 18px rgba(239,68,68,0.9));
       animation: charCharge 0.35s ease-in-out infinite alternate;
     }
     @keyframes charCharge {
-      from { filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55)) drop-shadow(0 0 8px rgba(239,68,68,0.5)); }
-      to { filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55)) drop-shadow(0 0 18px rgba(248,113,113,1)); }
+      from { filter: drop-shadow(0 8px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 10px rgba(239,68,68,0.55)); }
+      to { filter: drop-shadow(0 8px 14px rgba(0,0,0,0.55)) drop-shadow(0 0 22px rgba(248,113,113,1)); }
     }
     #fx-canvas {
       position: absolute; inset: 0; width: 100%; height: 100%;
@@ -450,7 +457,7 @@
             </div>
           </div>
           <div id="mulan-sprite" class="idle-float relative">
-            <img class="char-art" src="assets/mulan.png?v=3" alt="巾幗劍仙 木蘭" width="230" height="307" decoding="async" />
+            <img class="char-art" src="assets/mulan.png?v=4" alt="巾幗劍仙 木蘭" width="230" height="307" decoding="async" />
           </div>
         </div>
 
@@ -473,9 +480,9 @@
             </div>
           </div>
           <div id="enemy-sprite" class="enemy-sway relative">
-            <img id="enemy-svg-assassin" class="char-art" src="assets/assassin.png?v=3" alt="幽陵刺客" width="230" height="307" decoding="async" />
-            <img id="enemy-svg-general" class="char-art hidden" src="assets/general.png?v=3" alt="漠北騎督" width="230" height="307" decoding="async" />
-            <img id="enemy-svg-poet" class="char-art hidden" src="assets/poet.png?v=3" alt="李白劍魂" width="230" height="307" decoding="async" />
+            <img id="enemy-svg-assassin" class="char-art" src="assets/assassin.png?v=4" alt="幽陵刺客" width="230" height="307" decoding="async" />
+            <img id="enemy-svg-general" class="char-art hidden" src="assets/general.png?v=4" alt="漠北騎督" width="230" height="307" decoding="async" />
+            <img id="enemy-svg-poet" class="char-art hidden" src="assets/poet.png?v=4" alt="李白劍魂" width="230" height="307" decoding="async" />
           </div>
         </div>
       </div>
